@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
     }
     parcialResults.emplace_back(p.currentBest);
     std::cout << "Epochs, bestAnswer, Size" << std::endl;
-    for(int i = 0; i < parcialResults.size(); i++){
+    for(int i = 1; i < parcialResults.size(); i++){
         std::cout << (i * 100) << ", " << parcialResults[i] << ", " << graphSize << std::endl;
     }
     return 0;
