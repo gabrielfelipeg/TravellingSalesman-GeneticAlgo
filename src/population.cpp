@@ -34,9 +34,9 @@ void Population::start(int k, int size){
 
 long long Population::F(int x){
     long long ret = 0;
-    for(int i = 0; i < population[x].sequence.size() - 1; i++){
-        int u = population[x].sequence[i];
-        int v = population[x].sequence[i + 1];
+    for(int i = 0; i < population[x].chromosome.size() - 1; i++){
+        int u = population[x].chromosome[i];
+        int v = population[x].chromosome[i + 1];
         ret += weight[u][v];
     }
     return ret;
@@ -83,49 +83,49 @@ void Population::select(){
 }
 
 std::pair < Individual, Individual > Population::crossingOver(Individual &a, Individual &b){
-    int left = rand()%a.sequence.size();
-    int right = std::min(left + (a.sequence.size() / 3), a.sequence.size() - 1);
-    std::vector <int> freq1(a.sequence.size(), 0);
-    std::vector <int> freq2(a.sequence.size(), 0);
-    Individual ret1(std::vector<int>(a.sequence.size(), -1));
-    Individual ret2(std::vector<int>(a.sequence.size(), -1));
+    int left = rand()%a.chromosome.size();
+    int right = std::min(left + (a.chromosome.size() / 3), a.chromosome.size() - 1);
+    std::vector <int> freq1(a.chromosome.size(), 0);
+    std::vector <int> freq2(a.chromosome.size(), 0);
+    Individual ret1(std::vector<int>(a.chromosome.size(), -1));
+    Individual ret2(std::vector<int>(a.chromosome.size(), -1));
 
     for(int i = left; i <= right; i++){
-        ret1.sequence[i] = a.sequence[i];
-        ret2.sequence[i] = b.sequence[i];
-        freq1[ret1.sequence[i]]++;
-        freq2[ret2.sequence[i]]++;
+        ret1.chromosome[i] = a.chromosome[i];
+        ret2.chromosome[i] = b.chromosome[i];
+        freq1[ret1.chromosome[i]]++;
+        freq2[ret2.chromosome[i]]++;
     }
 
     bool conflito = true;
     while(conflito){
         conflito = false;
-        for(int i = 0; i < ret1.sequence.size(); i++){
-            if(ret1.sequence[i] == -1 && freq1[b.sequence[i]]){
+        for(int i = 0; i < ret1.chromosome.size(); i++){
+            if(ret1.chromosome[i] == -1 && freq1[b.chromosome[i]]){
                 conflito = true;
-                ret1.sequence[i] = a.sequence[i];
-                freq1[ret1.sequence[i]]++;
+                ret1.chromosome[i] = a.chromosome[i];
+                freq1[ret1.chromosome[i]]++;
             }
         }
     }
     conflito = true;
     while(conflito){
         conflito = false;
-        for(int i = 0; i < ret2.sequence.size(); i++){
-            if(ret2.sequence[i] == -1 && freq2[a.sequence[i]]){
+        for(int i = 0; i < ret2.chromosome.size(); i++){
+            if(ret2.chromosome[i] == -1 && freq2[a.chromosome[i]]){
                 conflito = true;
-                ret2.sequence[i] = b.sequence[i];
-                freq2[ret2.sequence[i]]++;
+                ret2.chromosome[i] = b.chromosome[i];
+                freq2[ret2.chromosome[i]]++;
             }
         }
     }
 
-    for(int i = 0; i < a.sequence.size(); i++){
-        if(ret1.sequence[i] == -1){
-            ret1.sequence[i] = b.sequence[i];
+    for(int i = 0; i < a.chromosome.size(); i++){
+        if(ret1.chromosome[i] == -1){
+            ret1.chromosome[i] = b.chromosome[i];
         }
-        if(ret2.sequence[i] == -1){
-            ret2.sequence[i] = a.sequence[i];
+        if(ret2.chromosome[i] == -1){
+            ret2.chromosome[i] = a.chromosome[i];
         }
     }
     return {ret1, ret2};

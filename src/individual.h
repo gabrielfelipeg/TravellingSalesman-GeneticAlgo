@@ -6,7 +6,7 @@
 
 class Individual{
     public:
-        std::vector<int> sequence;
+        std::vector<int> chromosome;
         void mutate();
         Individual();
         bool isValid(int tam);

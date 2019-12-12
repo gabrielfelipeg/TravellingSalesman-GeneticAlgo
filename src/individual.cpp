@@ -4,20 +4,20 @@ Individual::Individual(){
 }
 
 Individual::Individual(std::vector<int> param){
-    sequence = param;
+    chromosome = param;
 }
 
 void Individual::mutate(){
-    int pos1 = rand() % sequence.size();
-    int pos2 = rand() % sequence.size();
-    std::swap(sequence[pos1], sequence[pos2]);
+    int pos1 = rand() % chromosome.size();
+    int pos2 = rand() % chromosome.size();
+    std::swap(chromosome[pos1], chromosome[pos2]);
 }
 
 bool Individual::isValid(int tam){
-    std::vector <int> freq(sequence.size(), 0);
-    for(int i = 0; i < sequence.size(); i++){
-        freq[sequence[i]]++;
-        if(freq[sequence[i]] > 1)return false;    
+    std::vector <int> freq(chromosome.size(), 0);
+    for(int i = 0; i < chromosome.size(); i++){
+        freq[chromosome[i]]++;
+        if(freq[chromosome[i]] > 1)return false;    
     }
-    return tam == sequence.size();
+    return tam == chromosome.size();
 }
